@@ -1,20 +1,16 @@
 from mariar.constant import color
 import os
 import sys
-from mariar.utils.type import RedisType, MongoType
 from mariar.utils.helper import generate_input_text
 from typing import Dict, Any
+from mariar.controllers import controller
 
-class MariarIntrepeter:
-  def __init__(self, db_redis: RedisType = None, db_mongo: MongoType = None) -> None:
-    self.db_redis: RedisType = db_redis
-    self.db_mongo: MongoType = db_mongo
-
+class MariarInterpreter:
+  def __init__(self) -> None:
     self.command_options: Dict[str, Any] = {
-      'clear': lambda: self.clear(),
-      'exit': lambda: self.exit(),
-      'quit': lambda: self.exit(),
-      '1': lambda: print('option 1'),
+      'exit': lambda: sys.exit(0),
+      'quit': lambda: sys.exit(0),
+      '1': lambda: controller.search_location(),
       '2': lambda: print('option 2'),
       '3': lambda: print('option 3')
     }
@@ -23,7 +19,7 @@ class MariarIntrepeter:
     self.print_options()
 
   def print_banner(self) -> None:
-    self.clear()
+    os.system('clear') if os.name == 'posix' else os.system('cls')
 
     banner = f''' {color.LIGHT_GREEN}_   __            _
 |  \/  |          (_)
@@ -54,15 +50,6 @@ class MariarIntrepeter:
 
     print(options)
 
-  @staticmethod
-  def clear() -> None:
-    os.system('cls' if os.name == 'nt' else 'clear')
-    MariarIntrepeter.print_options()
-
-  @staticmethod
-  def exit() -> None:
-    sys.exit(0)
-
   def start(self) -> None:
     while True:
       try:
@@ -71,7 +58,7 @@ class MariarIntrepeter:
         if command in self.command_options:
           self.command_options[command]()
         else:
-          print(f'{color.LIGHT_YELLOW}Option not found !!{color.END}')
+          pass
 
       except (KeyboardInterrupt, SystemExit):
-        MariarIntrepeter.exit()
+        sys.exit(0)

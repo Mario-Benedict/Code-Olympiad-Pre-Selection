@@ -1,7 +1,7 @@
-from mariar.utils.type import RedisType
+from mariar.databases.redis import redis
 
-def set_cache(key: str, value: str, db: RedisType):
-  db.set(key, str(value))
+def set_cache(key: str, value: str):
+  redis.setex(key, 60 * 10, value)
 
-def get_cache(key: str, db: RedisType):
-  return db.get(key)
+def get_cache(key: str):
+  return redis.get(key)
