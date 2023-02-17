@@ -1,5 +1,5 @@
 from mariar.constant.core import END, UNDERLINE, AQI_BANNER, AQI_HEADERS
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
 import sys
 from tabulate import tabulate
 
