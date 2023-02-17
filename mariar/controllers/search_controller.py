@@ -5,6 +5,7 @@ from mariar.api.aqi import get_aqi
 from mariar.databases.mongo import mongo
 from mariar.utils.helper import exit_app, display_aqi
 from mariar.utils.cache import get_cache, set_cache
+from ast import literal_eval
 
 def display_search(data: List[Dict[str, Any]]):
   for i, v in enumerate(data):
@@ -56,21 +57,26 @@ def search_aqi(id: str):
       elif data_input.isnumeric() and cities_len >= int(data_input) >= 1:
         res = cities[int(data_input)-1]
         location = res.get('location')
+        country_id = res.get('country').get('objectId')
+
+        mongo_collection = mongo['countries']
+        country = mongo_collection.find_one({ "objectId": country_id })
 
         if not location:
           print('Location not found')
           continue
 
         if get_cache(res['name']) is not None:
-          display_aqi()
+          aqi = get_cache(res['name'])
+          display_aqi(aqi, f'{res["name"]}, {country["name"]}', aqi['list'][0]['main']['aqi'])
           break
 
         aqi = get_aqi(location.get('latitude'), location.get('longitude'))
         set_cache(res['name'], str(aqi))
-        display_aqi()
+        display_aqi(aqi, f'{res["name"]}, {country["name"]}', aqi['list'][0]['main']['aqi'])
         break
       elif data_input.isalpha():
-        cities = list(mongo_collection.find({ "name": { "$regex": data_input, "$options": "i" } }))
+        cities = list(mongo_collection.find({ "name": { "$regex": data_input, "$options": "i" }, "country.objectId": id }))
         display_search(cities)
       else:
         pass

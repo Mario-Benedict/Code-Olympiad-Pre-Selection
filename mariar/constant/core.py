@@ -1,3 +1,5 @@
+from typing import List
+
 LOG_FILE: str = 'mariar.log'
 LOG_MAX_BYTES: int = 1024 * 1024 * 5
 LOG_BACKUP_COUNT: int = 5
@@ -39,8 +41,4 @@ AQI_BANNER = ''' _______________________________________________________________
 |            https://openweathermap.org/api/air-pollution           |
 |___________________________________________________________________|
 '''
-
-DISPLAY_AQI = f'''
-
-
-'''
+AQI_HEADERS: List[str] = ['Location', 'Index Level', 'NO\u2082', 'PM\u2081\u2080', 'O\u2083', 'PM\u2082\u2085']

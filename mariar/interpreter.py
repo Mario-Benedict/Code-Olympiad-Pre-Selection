@@ -3,16 +3,16 @@ import os
 import sys
 from mariar.utils.helper import generate_input_text
 from typing import Dict, Any
-from mariar.controllers import controller
+from mariar.controllers import search_controller, previous_controller, current_controller
 
 class MariarInterpreter:
   def __init__(self) -> None:
     self.command_options: Dict[str, Any] = {
       'exit': lambda: sys.exit(0),
       'quit': lambda: sys.exit(0),
-      '1': lambda: controller.search_location(),
-      '2': lambda: print('option 2'),
-      '3': lambda: print('option 3')
+      '1': lambda: search_controller.search_location(),
+      '2': lambda: previous_controller.get_previous_search(),
+      '3': lambda: current_controller.get_current_aqi()
     }
 
     self.print_banner()
