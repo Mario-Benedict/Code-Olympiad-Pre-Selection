@@ -3,7 +3,7 @@ from mariar.utils.cache import get_all_cache
 from mariar.constant.color import LIGHT_GREEN, END
 from mariar.utils.helper import display_multiple_aqi
 
-def get_previous_search():
+def get_previous_search() -> None:
   data = get_all_cache()
 
   if data is None:

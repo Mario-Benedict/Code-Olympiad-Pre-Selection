@@ -7,12 +7,12 @@ from mariar.utils.helper import exit_app, display_aqi
 from mariar.utils.cache import get_cache, set_cache
 from ast import literal_eval
 
-def display_search(data: List[Dict[str, Any]]):
+def display_search(data: List[Dict[str, Any]]) -> None:
   for i, v in enumerate(data):
     country: str = v['name']
     print(f'{color.LIGHT_GREEN}[{i+1}]\t {color.LIGHT_CYAN}{country} {color.END}')
 
-def search_location():
+def search_location() -> None:
   mongo_collection = mongo['countries']
 
   countries: List[Dict[str, Any]] = list(mongo_collection.find({}))
@@ -38,7 +38,7 @@ def search_location():
     except KeyboardInterrupt:
       exit_app()
 
-def search_aqi(id: str):
+def search_aqi(id: str) -> None:
   mongo_collection = mongo['cities']
 
   cities: List[Dict[str, Any]] = list(mongo_collection.find({ "country.objectId": id }))

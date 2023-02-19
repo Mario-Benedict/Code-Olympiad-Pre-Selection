@@ -9,7 +9,7 @@ def exit_app() -> None:
 def generate_input_text(text: str) -> str:
   return f'{UNDERLINE}{text}{END} > '
 
-def display_aqi(data: Dict[str, Any], location: str, level: int):
+def display_aqi(data: Dict[str, Any], location: str, level: int) -> None:
   print(AQI_BANNER)
 
   table_data: Dict[str, Any] =  data['list'][0]['components']
@@ -17,7 +17,7 @@ def display_aqi(data: Dict[str, Any], location: str, level: int):
 
   print(tabulate(table_data, headers=AQI_HEADERS, tablefmt='simple_grid', numalign='center', stralign='center'))
 
-def display_multiple_aqi(data: List[Dict[str, Any]]):
+def display_multiple_aqi(data: List[Dict[str, Any]]) -> None:
   print(AQI_BANNER)
 
   table_data: List[List[Union[float, str, int]]] = []
