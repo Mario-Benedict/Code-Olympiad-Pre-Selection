@@ -20,9 +20,9 @@ def display_aqi(data: Dict[str, Any], location: str, level: int):
 def display_multiple_aqi(data: List[Dict[str, Any]]):
   print(AQI_BANNER)
 
-  table_data: List[List[float]] = []
+  table_data: List[List[Union[float, str, int]]] = []
   for i in data:
     components = i['list'][0]['components']
-    table_data.append([components['no2'], components['pm10'], components['o3'], components['pm2_5']])
+    table_data.append([i['location'], i['list'][0]['main']['aqi'] ,components['no2'], components['pm10'], components['o3'], components['pm2_5']])
 
-  print(tabulate(table_data, headers=AQI_HEADERS, tablefmt='simple_grid'))
+  print(tabulate(table_data, headers=AQI_HEADERS, tablefmt='simple_grid', numalign='center', stralign='center'))

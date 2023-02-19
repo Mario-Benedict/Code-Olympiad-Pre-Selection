@@ -72,7 +72,7 @@ def search_aqi(id: str):
           break
 
         aqi = get_aqi(location.get('latitude'), location.get('longitude'))
-        set_cache(res['name'], str(aqi))
+        set_cache(f'{res["name"]}, {country["name"]}', str(aqi))
         display_aqi(aqi, f'{res["name"]}, {country["name"]}', aqi['list'][0]['main']['aqi'])
         break
       elif data_input.isalpha():
