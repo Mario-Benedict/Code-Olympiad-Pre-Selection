@@ -38,6 +38,7 @@
   ```
 
 - _Create .env file in root directory_ (you can use my .env.example as a template)
+- _Extract the data.zip file_ (you can use 7zip, winrar, etc)
 - _Import CSV file to MongoDB Compass GUI_
 - _Run the app_ (you can use makefile or run it manually)
 
